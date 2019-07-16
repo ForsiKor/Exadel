@@ -2,9 +2,7 @@ package main.java.app.service;
 
 import main.java.app.dao.*;
 import main.java.app.entity.*;
-import java.util.Collection;
 import java.util.List;
-
 
 public class Service {
     private UserDaoImpl userDao;
@@ -48,10 +46,6 @@ public class Service {
             return true;
         }
     }
-
-
-  //  public Task getTask(String name) throws Exception {
-    //    return taskDao.getTask(name); }
 
     public User getUser(String name) throws Exception{
         return userDao.getUser(name); }
