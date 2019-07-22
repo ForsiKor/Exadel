@@ -1,49 +1,46 @@
-package main.java.app.entity;
+package app.entity;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.Objects;
 
 public class Task {
     private int id;
     private String name;
-    private Date deadline;
+    private String deadline;
     private int userId;
 
-    public Task(String name, Date deadline) {
+    public Task(String name, String data) {
         this.name = name;
+        this.deadline = data;
+    }
+
+    public Task(String name) {
+        this.name = name;
+    }
+
+    public void setDeadline(String deadline) {
         this.deadline = deadline;
     }
-    public Task(String name, String deadLine) throws Exception {
-        SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
-        Date date = format.parse(deadLine);
-        this.deadline = date;
-        this.name = name;
+
+    public void setUserId(int id){
+        userId = id;
     }
 
-    public int getId() {
-        return id;
+    public int getUserId(){
+        return userId;
     }
 
-    public void setId(String id) {
-        this.id = Integer.parseInt(id);
-    }
-
-    public String getName() {
+    public String getName(){
         return name;
     }
 
-    public Date getDeadline() {
+    public String getDeadline(){
         return deadline;
     }
-    public int getUserId() {
-        return userId;
-    }
-    public void setUserId(String userId) {
-        this.userId = Integer.parseInt(userId);
-    }
-    public void setUserId(int userId) {
-        this.userId = userId;
+
+    public int getId() { return id; }
+
+    public void setId(int id){
+        this.id = id;
     }
 
     @Override
@@ -59,6 +56,6 @@ public class Task {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, deadline, userId);
+        return Objects.hash(id, name, userId, deadline);
     }
 }

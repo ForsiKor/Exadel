@@ -1,43 +1,43 @@
-package main.java.app.dao;
+package app.dao;
 
-import main.java.app.entity.Task;
-import main.java.app.store.Store;
+import app.entity.Task;
+import app.store.TaskStoreImpl;
 
-import java.util.HashMap;
-import java.util.List;
+import java.util.Collection;
 import java.util.Map;
 
 public class TaskDaoImpl implements IDao<Task> {
-    private Store store = new Store();
+    TaskStoreImpl store = new TaskStoreImpl();
 
     @Override
-    public List<Task> getAll() throws Exception {
-        return (List<Task>) store.getInfoTask().values();
+    public Collection<Task> getAll() {
+        return store.getInfo().values();
     }
 
     @Override
-    public void create(Task task) throws Exception {
-        Map<String, Task> map = new HashMap<>();
-        map = store.getInfoTask();
-        map.put(task.getName(), task);
+    public Task get(String name) {
+        return store.getInfo().get(name);
+    }
+
+
+    @Override
+    public Task create(Task task) {
+        Map<Integer, Task> map = store.getInfo();
+        map.put(task.getId(),task);
         store.addInfo(map);
+        return task;
     }
 
-
     @Override
-    public void delete(String name) throws Exception{
-        Map<String, Task> map = new HashMap();
-        map = store.getInfoTask();
+    public boolean delete(String name) {
+        Map<Integer, Task> map = store.getInfo();
         map.remove(name);
         store.addInfo(map);
+        return true;
     }
 
-    @Override
-    public int getMaxId() throws Exception {
-        return store.getMaxIdUser();
+    public int getMaxId() {
+        return store.getMaxId();
     }
 
-    public Task getTask(String name) throws Exception {
-        return store.getInfoTask().get(name);
-    }
 }

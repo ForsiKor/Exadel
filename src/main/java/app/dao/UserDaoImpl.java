@@ -1,43 +1,42 @@
-package main.java.app.dao;
+package app.dao;
 
-import main.java.app.entity.User;
-import main.java.app.store.Store;
+import app.entity.User;
+import app.store.*;
 
-import java.util.HashMap;
-import java.util.List;
+import java.util.Collection;
 import java.util.Map;
 
 public class UserDaoImpl implements IDao<User>{
-    private Store store = new Store();
+    UserStoreImpl store = new UserStoreImpl();
 
     @Override
-    public List<User> getAll() throws Exception {
-        return (List<User>) store.getInfoUser().values();
+    public Collection<User> getAll() {
+        return store.getInfo().values();
     }
 
     @Override
-    public void create(User user) throws Exception {
-        Map<String, User> map = new HashMap<>();
-        map = store.getInfoUser();
-        map.put(user.getName(), user);
-        store.addInfoUser(map);
+    public User create(User user) {
+        Map<Integer, User> map = store.getInfo();
+        map.put(user.getId(),user);
+        store.addInfo(map);
+        return user;
     }
 
 
     @Override
-    public void delete(String name) throws Exception{
-        Map<String, User> map = new HashMap<>();
-        map = store.getInfoUser();
+    public boolean delete(String name) {
+        Map<Integer, User> map = store.getInfo();
         map.remove(name);
-        store.addInfoUser(map);
+        store.addInfo(map);
+        return true;
     }
 
     @Override
-    public int getMaxId() throws Exception {
-        return store.getMaxIdUser();
+    public User get(String name) {
+        return store.getInfo().get(name);
     }
 
-    public User getUser(String name) throws Exception {
-        return store.getInfoUser().get(name);
+    public int getMaxId() {
+        return store.getMaxId();
     }
 }

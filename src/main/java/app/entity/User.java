@@ -1,4 +1,4 @@
-package main.java.app.entity;
+package app.entity;
 
 import java.util.*;
 
